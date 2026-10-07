@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="author" content="Tinaski" />
+    <title>星星的孩子们 · Children of the Stars</title>
+    <meta name="description" content="《行星男孩》与《彗星青蛙》—— 两个住在天体上的孩子。基于 Ink 剧本 JSON 的互动视觉小说。" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E" />
+    <script type="module" crossorigin src="./assets/index-B0wRPHE_.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-ChgzMuYk.css">
+  </head>
+  <body>
+    <!--
+      页面骨架
+      =======================================================================
+      三个「屏幕」互斥显示（.screen.is-active），模态框统一挂在 #modal-root 里。
+      所有内容都由 src/main.js 生成/填充，这里只放骨架，方便你调整结构。
+    -->
+    <div id="app" class="app">
+      <!-- ① 开始界面 ------------------------------------------------------- -->
+      <section id="screen-cover" class="screen cover" aria-label="开始界面">
+        <div class="cover__art" id="cover-art" aria-hidden="true"></div>
+        <div class="cover__veil" aria-hidden="true"></div>
+
+        <div class="cover__inner">
+          <div class="cover__left">
+            <p class="cover__kicker" id="cover-kicker">Ink 互动小说</p>
+            <h1 class="cover__title" id="cover-title">星星的孩子</h1>
+            <p class="cover__title-en" id="cover-title-en">Children of the Stars</p>
+            <p class="cover__subtitle" id="cover-subtitle"></p>
+
+            <nav class="cover__menu" id="cover-menu" aria-label="主菜单"></nav>
+          </div>
+
+          <aside class="cover__right">
+            <blockquote class="cover__epigraph" id="cover-epigraph"></blockquote>
+            <p class="cover__author" id="cover-author"></p>
+          </aside>
+        </div>
+
+        <footer class="cover__footer">
+          <span id="cover-version"></span>
+          <span class="cover__footer-sep">·</span>
+          <span>按 Enter 继续上次进度</span>
+        </footer>
+      </section>
+
+      <!-- ② 游戏界面 ------------------------------------------------------- -->
+      <section id="screen-game" class="screen game" aria-label="游戏界面">
+        <!-- 左：场景图 + 叠加层 -->
+        <div class="scene">
+          <img class="scene__art" id="scene-art" alt="" />
+          <div class="scene__tint" id="scene-tint" aria-hidden="true"></div>
+          <div class="scene__grain" aria-hidden="true"></div>
+
+          <!-- 左上角：记事本 + 状态面板 -->
+          <button class="notebook-btn" id="notebook-btn" type="button" title="打开记事本（Tab）">
+            <span class="notebook-btn__icon" aria-hidden="true">📓</span>
+            <span>记事本</span>
+          </button>
+          <aside class="status" id="status-panel" aria-label="玩家状态"></aside>
+
+          <!-- 顶部中间：日期 + 时段 -->
+          <div class="datechip" id="date-chip" aria-live="polite"></div>
+          <div class="placechip" id="place-chip"></div>
+
+        </div>
+
+        <!-- 右：正文 + 选项 -->
+        <div class="panel">
+          <div class="panel__scroll" id="stream-scroll">
+            <div class="stream" id="stream" aria-live="polite"></div>
+            <div class="choices" id="choices"></div>
+          </div>
+          <div class="panel__hint" id="panel-hint">点击继续</div>
+          <!-- 玩家往回翻看历史时，出现这个按钮，提示下面还有新内容 -->
+          <button class="panel__jump" id="panel-jump" type="button" hidden>↓ 回到最新</button>
+        </div>
+
+        <!-- 右上角：暂停（贴着整个窗口的右上角，和参考图一致） -->
+        <button class="pause-btn" id="pause-btn" type="button" title="暂停（Esc）" aria-label="暂停">
+          <span class="pause-btn__bars" aria-hidden="true"><i></i><i></i></span>
+        </button>
+      </section>
+
+      <!-- ③ 致谢界面 ------------------------------------------------------- -->
+      <section id="screen-credits" class="screen credits" aria-label="制作人名单及致谢">
+        <canvas class="credits__sky" id="credits-sky" aria-hidden="true"></canvas>
+        <div class="credits__roll" id="credits-roll"></div>
+        <div class="credits__bar">
+          <button class="btn btn--ghost" id="credits-back" type="button">返回</button>
+          <span class="credits__hint">Esc / 点击返回</span>
+        </div>
+      </section>
+
+      <!-- 模态框容器 -->
+      <div id="modal-root"></div>
+
+      <!-- 全局提示（保存/读取/音量） -->
+      <div id="toast-root" class="toast-root" aria-live="polite"></div>
+
+      <!-- 加载遮罩 -->
+      <div id="boot" class="boot">
+        <div class="boot__star" aria-hidden="true">✦</div>
+        <p class="boot__text">正在点亮星星…</p>
+      </div>
+    </div>
+
+  </body>
+</html>
